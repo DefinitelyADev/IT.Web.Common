@@ -3,38 +3,42 @@ using IT.Web.Common.Abstractions;
 
 namespace IT.Web.Common.Tests;
 
-public class UnitTest1
+public class WebAppTypeFinderTests
 {
     [Fact]
-    public void Return()
+    public void FindClassesOfType_ReturnsTheAppropriateTypes()
     {
         ITypeFinder finder = new WebAppTypeFinder();
 
-        List<Type> findableInterfaceType = finder.FindClassesOfType<IMyInterface>().ToList();
-        findableInterfaceType.Count.Should().Be(1);
+        Type[] findableInterfaceType = finder.FindClassesOfType<IMyInterface>().ToArray();
+        findableInterfaceType.Length.Should().Be(1);
         typeof(IMyInterface).IsAssignableFrom(findableInterfaceType.FirstOrDefault()).Should().BeTrue();
 
-        List<Type> findableClassType = finder.FindClassesOfType<MyFindableClass>().ToList();
-        findableClassType.Count.Should().Be(1);
+        Type[] findableClassType = finder.FindClassesOfType<MyFindableClass>().ToArray();
+        findableClassType.Length.Should().Be(1);
         typeof(MyFindableClass).IsAssignableFrom(findableClassType.FirstOrDefault()).Should().BeTrue();
 
-        List<Type> ignoredType = finder.FindClassesOfType<MyIgnoredClass>().ToList();
-        ignoredType.Count.Should().Be(0);
+        Type[] ignoredType = finder.FindClassesOfType<MyIgnoredClass>().ToArray();
+        ignoredType.Length.Should().Be(0);
     }
-}
 
-public interface IMyInterface
-{
+    // ReSharper disable once MemberCanBePrivate.Global
+    public interface IMyInterface
+    {
 
-}
+    }
 
-public class MyFindableClass : IMyInterface
-{
+    // ReSharper disable once MemberCanBePrivate.Global
+    public class MyFindableClass : IMyInterface
+    {
 
-}
+    }
 
-[ReflectionIgnore]
-public class MyIgnoredClass : IMyInterface
-{
+    [ReflectionIgnore]
+    // ReSharper disable once MemberCanBePrivate.Global
+    // ReSharper disable once ClassNeverInstantiated.Global
+    public class MyIgnoredClass : IMyInterface
+    {
 
+    }
 }
