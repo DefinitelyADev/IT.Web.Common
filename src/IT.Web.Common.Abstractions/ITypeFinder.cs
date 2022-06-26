@@ -6,7 +6,7 @@ namespace IT.Web.Common.Abstractions;
 /// Classes implementing this interface provide information about types
 /// to various services in the application.
 /// </summary>
-public interface ITypeFinder
+public interface ITypeFinder : IDisposable
 {
     /// <summary>
     /// Find classes of type

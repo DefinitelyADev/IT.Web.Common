@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using IT.Web.Common.Abstractions;
@@ -79,7 +80,7 @@ public abstract class AppDomainTypeFinder : ITypeFinder
     /// Check if a dll is one of the shipped dlls that we know don't need to be investigated.
     /// </summary>
     /// <param name="assemblyFullName">
-    ///     The name of the assembly to check.
+    /// The name of the assembly to check.
     /// </param>
     /// <returns>
     /// True if the assembly should be loaded into the App.
@@ -93,10 +94,10 @@ public abstract class AppDomainTypeFinder : ITypeFinder
     /// Check if a dll is one of the shipped dlls that we know don't need to be investigated.
     /// </summary>
     /// <param name="assemblyFullName">
-    ///     The assembly name to match.
+    /// The assembly name to match.
     /// </param>
     /// <param name="pattern">
-    ///     The regular expression pattern to match against the assembly name.
+    /// The regular expression pattern to match against the assembly name.
     /// </param>
     /// <returns>
     /// True if the pattern matches the assembly name.
@@ -301,4 +302,19 @@ public abstract class AppDomainTypeFinder : ITypeFinder
     public string AssemblyRestrictToLoadingPattern { get; set; } = ".*";
 
     #endregion
+
+    [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _fileProvider?.Dispose();
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }

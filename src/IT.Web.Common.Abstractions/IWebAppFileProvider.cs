@@ -6,7 +6,7 @@ namespace IT.Web.Common.Abstractions;
 /// <summary>
 /// A file provider abstraction
 /// </summary>
-public interface IWebAppFileProvider : IFileProvider
+public interface IWebAppFileProvider : IFileProvider, IDisposable
 {
     /// <summary>
     /// Combines an array of strings into a path

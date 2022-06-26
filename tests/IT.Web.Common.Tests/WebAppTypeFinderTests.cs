@@ -8,7 +8,7 @@ public class WebAppTypeFinderTests
     [Fact]
     public void FindClassesOfType_ReturnsTheAppropriateTypes()
     {
-        ITypeFinder finder = new WebAppTypeFinder();
+        using ITypeFinder finder = new WebAppTypeFinder();
 
         Type[] findableInterfaceType = finder.FindClassesOfType<IMyInterface>().ToArray();
         findableInterfaceType.Length.Should().Be(1);
